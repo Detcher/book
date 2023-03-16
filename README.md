@@ -1,0 +1,3 @@
+# book
+
+## This Repo is all about books that I've self-learned, with code/notes/thoughts/...
