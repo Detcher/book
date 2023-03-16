@@ -1,0 +1,16 @@
+# Chapter_1
+
+1. P10 为了cope with实际设备需要中断例程的数量大于中断向量表里数量的情况，采用interrupt-chaining的策略，感觉跟多级页表(geeksforgeeks里有)那种差不多，增加一张表放指向中断向量表的的指针，整体就由多张向量表组成，但是接下去说的，"When an interrupt is raised, the handlers on the corresponding list are called one by one, until one is found that can service the request"，为什么还需要one by one的探测呢？? 再往下就说，"This structure is a compromise between the overhead of a huge interrupt table and the inefficiency of dispatching to a single interrupt handler."，是一种妥协  
+2. 关于Asynchronous events：第一次出现是在说，interrupt可以解决asynchronous events，比较好奇为什么说是"Asynchronous"，我猜测是因为"without having to continuously poll for their occurrence or wait for them to complete."，不用让CPU一直在while循环里去监听某个事件，还会接着执行指令，执行指令间隔去检查interrupt-request line；interrupt自己会assert a signal或者转交控制权，这期间可以去concurrently做些其他事情  
+3. P49 Because most operating systems lack support for simultaneous data access by multiple hosts, parallel clusters usually require the use of special versions of software and special releases of applications  
+4. P51 "(Idle lawyers tend to become politicians, so there is a certain social value in keeping lawyers busy.)" 这段吐槽绷不住了hhh  
+5. P51 In a multiprogrammed system, a program in execution is termed a process. 在多程序系统里，有"process"一说，用virtual memory可以ensure response time：因为allows the execution of a process that is not completely in memory，减少了非必要的、从二级存储转移到内存里的时间；同时必须提供一个file system，因为：第一，既然在内存里的可能不是某个process的全部，那ta的剩余部分肯定需要一个store的地方；第二，鉴于multiple programs or processes are running concurrently，所以必须have a way to store and access data that is shared by those programs or processes.  
+6. P52 关于multiprogramming和multitasking的区别，最重要的一点是后者因为有"task"，所以是time-sensitive的， 因此引入了time-sharing的模式，每隔一个time-slice就会switch，而不是像前者一样直到有不可抗力因素才停止https://www.geeksforgeeks.org/difference-between-multiprogramming-and-multitasking/  
+7. P56 For a program to be executed, it must be mapped to absolute addresses and loaded into memory. "absolute addresses"，想想CS:IP好像也是，IP是相对地址，加上CS段地址  
+8. OS通过driver提供的接口来间接控制硬件工作，driver通过controller实际的物理接口来直接控制硬件工作，所以驱动是对硬件设备/controller本身提供的一些物理接口(寄存器...)的一层封装，方便OS操作使用 Btw: Device-control registers are not accessible to users, so the integrity of the various peripheral devices is protected. The relationship between a device driver, a device controller, and the OS can be thought of as follows:  
+    > - The device driver is the interface between the device and the OS. It allows the OS to send commands and data to the device and receive responses from the device.
+    > - The device controller is the interface between the device driver and the device. It translates the commands and data sent by the device driver into a form that the device can understand and execute, and manages the flow of data between the device and the rest of the computer.
+    > - The OS is the central control system of the computer. It controls the operation of the computer and coordinates the activities of the other hardware and software components. The OS communicates with devices through the device driver, which in turn communicates with the device controller.
+9. P63 关于两种hypervisior
+    > https://www.techtarget.com/searchitoperations/tip/Whats-the-difference-between-Type-1-vs-Type-2-hypervisor
+
